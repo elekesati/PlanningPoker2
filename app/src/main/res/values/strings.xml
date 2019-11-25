@@ -36,6 +36,9 @@
     <string name="skip">Skip</string>
     <string name="rigth">Next</string>
     <string name="result">Results</string>
+    <string name="groups">Groups</string>
+    <string name="addnewgroup">Add new group</string>
+    <string name="Addnametothegroup">Add name to the group</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

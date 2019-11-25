@@ -33,7 +33,6 @@ public class LoginFragment extends Fragment {
     private CheckBox mShowPassword;
     FirebaseAuth mFireBaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
-    OnGetDataListener onGetDataListener;
 
     public LoginFragment(){
 
@@ -58,7 +57,8 @@ public class LoginFragment extends Fragment {
             public void onClick(View v) {
                 String email = mEmail.getText().toString();
                 String password = mPassword.getText().toString();
-                login(email,password);
+                //login(email,password);
+                MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_container, new GroupsFragment(),null).commit();
             }
         });
 
@@ -122,7 +122,7 @@ public class LoginFragment extends Fragment {
                 FirebaseUser mFirebaseUser = mFireBaseAuth.getCurrentUser();
                 if (mFirebaseUser != null){
                     Toast.makeText(getActivity(), "You are logged in", Toast.LENGTH_LONG).show();
-                    //MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_place, new ScoringFragment(),null).commit();
+                    MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_container, new GroupsFragment(),null).commit();
                 }
                 else{
                     Toast.makeText(getActivity(), "Please log in", Toast.LENGTH_LONG).show();
