@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,7 @@ public class GroupsFragment extends Fragment {
     private RecyclerView.LayoutManager layoutManager;
     List<String> groups = new ArrayList<>();
     DividerItemDecoration dividerItemDecoration;
+    private Button btnAddNewGroup;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,11 +44,19 @@ public class GroupsFragment extends Fragment {
         groups.add("2200-15-36");
         mRecyclerViewResultList = view.findViewById(R.id.rv_groups);
         dividerItemDecoration = new DividerItemDecoration(getContext(), VERTICAL);
+        btnAddNewGroup = view.findViewById(R.id.btn_add_group);
         mRecyclerViewResultList.addItemDecoration(dividerItemDecoration);
         layoutManager = new LinearLayoutManager(getContext());
         adapter = new RecyclerViewGroups(groups);
         mRecyclerViewResultList.setLayoutManager(layoutManager);
         mRecyclerViewResultList.setAdapter(adapter);
+
+        btnAddNewGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_container, new AddGroupsFragment(),null).commit();
+            }
+        });
         return view;
     }
 
