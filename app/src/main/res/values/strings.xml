@@ -39,6 +39,9 @@
     <string name="groups">Groups</string>
     <string name="addnewgroup">Add new group</string>
     <string name="Addnametothegroup">Add name to the group</string>
+    <string name="addnewquestion">Add new task</string>
+    <string name="addquestion">Add question</string>
+    <string name="backtogroups">Back</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

@@ -19,13 +19,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class SignUpFragment extends Fragment {
+public class RegisterFragment extends Fragment {
 
     private EditText mEmail, mPassword, mFullName;
     private Button btnSignUp;
     private TextView mBack;
     FirebaseAuth mFireBaseAuth;
-    public SignUpFragment(){
+    public RegisterFragment(){
 
     }
 
@@ -33,7 +33,7 @@ public class SignUpFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_sign_up, container, false);
+        View view = inflater.inflate(R.layout.fragment_register, container, false);
         btnSignUp = view.findViewById(R.id.btnSignUp);
         mFireBaseAuth = FirebaseAuth.getInstance();
         mEmail = view.findViewById(R.id.et_email);
@@ -45,7 +45,7 @@ public class SignUpFragment extends Fragment {
         mBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_container, new LoginFragment(),null).commit();
+                MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_container, new SignInFragment(),null).commit();
             }
         });
 
@@ -88,8 +88,8 @@ public class SignUpFragment extends Fragment {
                                 email
                         );
                         FirebaseDatabase.getInstance().getReference("Users")
-                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                            .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (!task.isSuccessful()){

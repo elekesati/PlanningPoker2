@@ -22,10 +22,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.util.List;
-import java.util.Map;
+public class SignInFragment extends Fragment {
 
-public class LoginFragment extends Fragment {
 
     private EditText mEmail, mPassword;
     private Button btnLogin;
@@ -34,7 +32,7 @@ public class LoginFragment extends Fragment {
     FirebaseAuth mFireBaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
 
-    public LoginFragment(){
+    public SignInFragment(){
 
     }
 
@@ -42,7 +40,7 @@ public class LoginFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_login, container, false);
+        View view = inflater.inflate(R.layout.fragment_sign_in, container, false);
         btnLogin = view.findViewById(R.id.btnLogin);
         mFireBaseAuth = FirebaseAuth.getInstance();
         mEmail = view.findViewById(R.id.et_email_login);
@@ -58,7 +56,7 @@ public class LoginFragment extends Fragment {
                 String email = mEmail.getText().toString();
                 String password = mPassword.getText().toString();
                 //login(email,password);
-                MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_container, new GroupsFragment(),null).commit();
+                MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_container, new AddGroupsFragment(),null).commit();
             }
         });
 
@@ -66,10 +64,9 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 MainActivity.fragmentManager.beginTransaction().replace(
-                        R.id.fragment_container, new SignUpFragment(),null).commit();
+                        R.id.fragment_container, new RegisterFragment(),null).commit();
             }
         });
-
         return view;
     }
 
@@ -130,4 +127,5 @@ public class LoginFragment extends Fragment {
             }
         };
     }
+
 }
