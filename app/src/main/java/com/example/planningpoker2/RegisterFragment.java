@@ -45,7 +45,7 @@ public class RegisterFragment extends Fragment {
         mBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_container, new SignInFragment(),null).commit();
+                MainActivity.mFragmentManager.beginTransaction().replace(R.id.fragment_container, new SignInFragment(),null).commit();
             }
         });
 
@@ -97,7 +97,7 @@ public class RegisterFragment extends Fragment {
                                 }
                                 else{
                                     Toast.makeText(getActivity(), "Login in success", Toast.LENGTH_LONG).show();
-                                    //MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_container, new NewScoringFragment(),null).commit();
+                                    //MainActivity.mFragmentManager.beginTransaction().replace(R.id.fragment_container, new NewScoringFragment(),null).commit();
                                 }
                             }
                         });

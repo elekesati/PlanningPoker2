@@ -1,7 +1,5 @@
 package com.example.planningpoker2;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -47,7 +45,7 @@ public class AddGroupsFragment extends Fragment {
                 if (!mGroupName.getText().toString().matches("")){
                     database.removeTaskIfClickBackButton(mGroupName.getText().toString());
                 }
-                MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_container, new GroupsFragment(),null).commit();
+                MainActivity.mFragmentManager.beginTransaction().replace(R.id.fragment_container, new GroupsFragment(),null).commit();
             }
         });
 

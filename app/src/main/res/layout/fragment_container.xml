@@ -6,4 +6,8 @@
     android:layout_height="match_parent"
     android:background="@drawable/gradient_background">
 
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
 </LinearLayout>
