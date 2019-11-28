@@ -3,7 +3,9 @@
 
     <item android:title="Item1" />
     <item android:title="Item2" />
-    <item android:title="Item3" />
+    <item
+        android:icon="@drawable/fui_ic_check_circle_black_128dp"
+        android:title="Item3" />
     <item android:title="Item4" />
     <item android:title="Item5" />
 </menu>
