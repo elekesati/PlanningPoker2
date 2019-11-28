@@ -56,7 +56,7 @@ public class SignInFragment extends Fragment {
                 String email = mEmail.getText().toString();
                 String password = mPassword.getText().toString();
                 //login(email,password);
-                MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_container, new AddGroupsFragment(),null).commit();
+                MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_container, new GroupsFragment(),null).commit();
             }
         });
 
