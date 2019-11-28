@@ -13,14 +13,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.fragment.app.Fragment;
 
 public class SignInFragment extends Fragment {
 
@@ -50,20 +51,24 @@ public class SignInFragment extends Fragment {
         checkShowPassword();
         authStateListener();
 
+        enableBackArrow(false);
+
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                enableBackArrow(true);
                 String email = mEmail.getText().toString();
                 String password = mPassword.getText().toString();
                 //login(email,password);
-                MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_container, new AddGroupsFragment(),null).commit();
+                MainActivity.mFragmentManager.beginTransaction().replace(R.id.fragment_container, new AddGroupsFragment(),null).commit();
             }
         });
 
         mRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.fragmentManager.beginTransaction().replace(
+                enableBackArrow(true);
+                MainActivity.mFragmentManager.beginTransaction().replace(
                         R.id.fragment_container, new RegisterFragment(),null).commit();
             }
         });
@@ -119,7 +124,7 @@ public class SignInFragment extends Fragment {
                 FirebaseUser mFirebaseUser = mFireBaseAuth.getCurrentUser();
                 if (mFirebaseUser != null){
                     Toast.makeText(getActivity(), "You are logged in", Toast.LENGTH_LONG).show();
-                    MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_container, new GroupsFragment(),null).commit();
+                    MainActivity.mFragmentManager.beginTransaction().replace(R.id.fragment_container, new GroupsFragment(),null).commit();
                 }
                 else{
                     Toast.makeText(getActivity(), "Please log in", Toast.LENGTH_LONG).show();
@@ -128,4 +133,10 @@ public class SignInFragment extends Fragment {
         };
     }
 
+    private void enableBackArrow(boolean enable){
+        ActionBar supportActionBar = ((MainActivity) getActivity()).getSupportActionBar();
+        supportActionBar.setHomeButtonEnabled(enable);
+        supportActionBar.setDisplayHomeAsUpEnabled(enable);
+        supportActionBar.setDisplayShowHomeEnabled(enable);
+    }
 }
