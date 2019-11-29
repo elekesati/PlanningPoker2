@@ -1,9 +1,6 @@
 package com.example.planningpoker2;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +8,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 
 public class AddGroupsFragment extends Fragment {
 
@@ -38,7 +39,7 @@ public class AddGroupsFragment extends Fragment {
             }
         });
 
-        mBack.setOnClickListener(new View.OnClickListener() {
+        /*mBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!mGroupName.getText().toString().matches("")){
@@ -46,9 +47,23 @@ public class AddGroupsFragment extends Fragment {
                 }
                 MainActivity.mFragmentManager.beginTransaction().replace(R.id.fragment_container, new GroupsFragment(),null).commit();
             }
-        });
+        });*/
 
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        //Toolbar toolbar = getView().findViewById(R.id.toolbar);
+        Toolbar toolbar = ((MainActivity) getActivity()).findViewById(R.id.toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.mFragmentManager.beginTransaction().replace(R.id.fragment_container, new GroupsFragment(),null).commit();
+            }
+        });
     }
 
     public void addTaskAndCheckField(){

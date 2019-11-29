@@ -9,15 +9,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 
 public class RegisterFragment extends Fragment {
 
@@ -42,12 +44,12 @@ public class RegisterFragment extends Fragment {
         mBack = view.findViewById(R.id.tv_back_to_login);
 
 
-        mBack.setOnClickListener(new View.OnClickListener() {
+        /*mBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 MainActivity.mFragmentManager.beginTransaction().replace(R.id.fragment_container, new SignInFragment(),null).commit();
             }
-        });
+        });*/
 
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,7 +62,22 @@ public class RegisterFragment extends Fragment {
                 checkIfFieldIsEmpty(email, password,fullname);
             }
         });
+
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        //Toolbar toolbar = getView().findViewById(R.id.toolbar);
+        Toolbar toolbar = ((MainActivity) getActivity()).findViewById(R.id.toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.mFragmentManager.beginTransaction().replace(R.id.fragment_container, new SignInFragment(),null).commit();
+            }
+        });
     }
 
     public void checkIfFieldIsEmpty(final String email, final String password, final String fullname){
