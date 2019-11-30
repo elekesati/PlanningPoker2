@@ -16,8 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import static android.widget.LinearLayout.VERTICAL;
 
-
-public class GroupsFragment extends Fragment {
+public class GroupsListFragment extends Fragment {
 
     private RecyclerView mRecyclerViewResultList;
     private RecyclerView.Adapter adapter;
@@ -26,17 +25,22 @@ public class GroupsFragment extends Fragment {
     DividerItemDecoration dividerItemDecoration;
     private Button btnAddNewGroup;
 
+    OnGetDataListener onGetDataListener;
+    Database database = new Database();
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_groups, container, false);
+        View view = inflater.inflate(R.layout.fragment_groups_list, container, false);
+
         groups.add("2020-10-26");
         groups.add("2200-15-36");
         groups.add("2200-15-36");
         groups.add("2200-15-36");
         groups.add("2200-15-36");
         groups.add("2200-15-36");
+
         mRecyclerViewResultList = view.findViewById(R.id.rv_groups);
         dividerItemDecoration = new DividerItemDecoration(getContext(), VERTICAL);
         btnAddNewGroup = view.findViewById(R.id.btn_add_group);
@@ -54,5 +58,4 @@ public class GroupsFragment extends Fragment {
         });
         return view;
     }
-
 }

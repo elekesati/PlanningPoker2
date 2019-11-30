@@ -46,14 +46,14 @@ public class AddGroupsFragment extends Fragment {
                 if (!mGroupName.getText().toString().matches("")){
                     database.removeTaskIfClickBackButton(mGroupName.getText().toString());
                 }
-                MainActivity.mFragmentManager.beginTransaction().replace(R.id.fragment_container, new GroupsFragment(),null).commit();
+                MainActivity.mFragmentManager.beginTransaction().replace(R.id.fragment_container, new GroupsListFragment(),null).commit();
             }
         });*/
 
         mSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.mFragmentManager.beginTransaction().replace(R.id.fragment_container, new GroupsFragment(),null).commit();
+                MainActivity.mFragmentManager.beginTransaction().replace(R.id.fragment_container, new GroupsListFragment(),null).commit();
             }
         });
         return view;
