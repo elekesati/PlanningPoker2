@@ -30,6 +30,7 @@ public class GroupsListFragment extends Fragment {
     private Button btnAddNewGroup;
     OnGetDataListener onGetDataListener;
     Database database = new Database();
+    
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
