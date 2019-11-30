@@ -1,5 +1,7 @@
 package com.example.planningpoker2;
 
+import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,20 +9,19 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import static android.widget.LinearLayout.VERTICAL;
 
-
-public class GroupsFragment extends Fragment {
+public class GroupsListFragment extends Fragment {
 
     private RecyclerView mRecyclerViewResultList;
     private RecyclerView.Adapter adapter;
@@ -34,7 +35,7 @@ public class GroupsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_groups, container, false);
+        View view = inflater.inflate(R.layout.fragment_groups_list, container, false);
         mRecyclerViewResultList = view.findViewById(R.id.rv_groups);
         dividerItemDecoration = new DividerItemDecoration(getContext(), VERTICAL);
         btnAddNewGroup = view.findViewById(R.id.btn_add_group);
@@ -64,5 +65,4 @@ public class GroupsFragment extends Fragment {
 
         return view;
     }
-
 }

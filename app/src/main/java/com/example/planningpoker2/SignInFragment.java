@@ -125,7 +125,7 @@ public class SignInFragment extends Fragment {
                 FirebaseUser mFirebaseUser = mFireBaseAuth.getCurrentUser();
                 if (mFirebaseUser != null){
                     Toast.makeText(getActivity(), "You are logged in", Toast.LENGTH_LONG).show();
-                    MainActivity.mFragmentManager.beginTransaction().replace(R.id.fragment_container, new GroupsFragment(),null).commit();
+                    MainActivity.mFragmentManager.beginTransaction().replace(R.id.fragment_container, new GroupsListFragment(),null).commit();
                 }
                 else{
                     Toast.makeText(getActivity(), "Please log in", Toast.LENGTH_LONG).show();
