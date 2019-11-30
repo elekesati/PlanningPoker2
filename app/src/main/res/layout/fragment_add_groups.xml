@@ -9,37 +9,26 @@
 
 
     <Button
-        android:id="@+id/btn_backtogroups"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="25dp"
-        android:background="@drawable/roundedbutton"
-        android:text="@string/backtogroups"
-        android:textColor="#FFFFFF"
-        android:textStyle="italic|bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_addquestion" />
-
-    <Button
         android:id="@+id/btn_Submit"
         android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="15dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="142dp"
         android:background="@drawable/roundedbutton"
         android:text="@string/submit"
         android:textColor="#FFFFFF"
         android:textStyle="italic|bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_addquestion" />
 
     <Button
         android:id="@+id/btn_addquestion"
-        android:layout_width="150dp"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="140dp"
-        android:layout_marginEnd="142dp"
+        android:layout_marginStart="116dp"
+        android:layout_marginEnd="116dp"
         android:background="@drawable/roundbuttonwithborder"
         android:text="@string/addquestion"
         android:textColor="@color/colorAccent"
