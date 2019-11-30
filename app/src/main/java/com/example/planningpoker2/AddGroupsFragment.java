@@ -68,7 +68,7 @@ public class AddGroupsFragment extends Fragment {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.mFragmentManager.beginTransaction().replace(R.id.fragment_container, new GroupsFragment(),null).commit();
+                MainActivity.mFragmentManager.beginTransaction().replace(R.id.fragment_container, new GroupsListFragment(),null).commit();
             }
         });
     }
