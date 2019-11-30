@@ -29,7 +29,6 @@ public class AddGroupsFragment extends Fragment {
         mNewTask = view.findViewById(R.id.et_newquestion);
         mTasksList = view.findViewById(R.id.tv_questions);
         mGroupName = view.findViewById(R.id.et_groupname);
-        mBack = view.findViewById(R.id.btn_backtogroups);
         mSubmit = view.findViewById(R.id.btn_Submit);
         mTasksList.setMovementMethod(new ScrollingMovementMethod());
 
@@ -39,16 +38,6 @@ public class AddGroupsFragment extends Fragment {
                 addTaskAndCheckField();
             }
         });
-
-        /*mBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!mGroupName.getText().toString().matches("")){
-                    database.removeTaskIfClickBackButton(mGroupName.getText().toString());
-                }
-                MainActivity.mFragmentManager.beginTransaction().replace(R.id.fragment_container, new GroupsListFragment(),null).commit();
-            }
-        });*/
 
         mSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,6 +57,7 @@ public class AddGroupsFragment extends Fragment {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //database.removeTaskIfClickBackButton(mGroupName.getText().toString());
                 MainActivity.mFragmentManager.beginTransaction().replace(R.id.fragment_container, new GroupsListFragment(),null).commit();
             }
         });

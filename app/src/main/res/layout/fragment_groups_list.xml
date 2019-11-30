@@ -8,13 +8,25 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_groups"
         android:layout_width="351dp"
-        android:layout_height="452dp"
+        android:layout_height="350dp"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="40dp"
         android:layout_marginEnd="41dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline22" />
+
+    <TextView
+        android:id="@+id/tv_groups"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="25dp"
+        android:text="@string/groups"
+        android:textColor="@color/colorAccent"
+        android:textSize="36sp"
+        android:textStyle="italic|bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline14" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline14"
@@ -23,19 +35,6 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.0"
         app:layout_constraintGuide_begin="20dp" />
-
-    <TextView
-        android:id="@+id/tv_groups"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="25dp"
-        android:text="@string/groups"
-        android:textColor="@color/colorAccent"
-        android:textSize="36sp"
-        android:textStyle="italic|bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline14" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline22"
