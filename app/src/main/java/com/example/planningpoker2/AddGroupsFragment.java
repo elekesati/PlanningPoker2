@@ -52,7 +52,7 @@ public class AddGroupsFragment extends Fragment {
         mSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_container, new GroupsFragment(),null).commit();
+                MainActivity.mFragmentManager.beginTransaction().replace(R.id.fragment_container, new GroupsFragment(),null).commit();
             }
         });
         return view;
