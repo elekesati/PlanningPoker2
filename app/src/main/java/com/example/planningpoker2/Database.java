@@ -2,8 +2,6 @@ package com.example.planningpoker2;
 
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -14,11 +12,14 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+
 public class Database {
     private static final String TAG = "PlanningPokerDatabase";
     DatabaseReference myRef;
     FirebaseDatabase mDatabase;
     List<String> groupNames = new ArrayList<>();
+    List<String> tasks = new ArrayList<>();
 
     public void addNewTaskToAGroup(String groupName, String taskName){
         Task task = new Task(taskName);
