@@ -11,6 +11,9 @@
         <item name="subtitleTextColor">@color/colorPrimaryDark</item>
 
         <item name="actionOverflowMenuStyle">@style/MenuStyle</item>
+
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 
     <style name="MenuStyle" parent="Widget.AppCompat.PopupMenu.Overflow">

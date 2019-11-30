@@ -1,3 +1,48 @@
 <resources>
-    <string name="app_name">PlanningPoker2</string>
+    <string name="app_name">PlanningPoker</string>
+    <string name="task">Task</string>
+    <string name="score">Score</string>
+    <string name="submit">Submit</string>
+    <string name="vote">Vote</string>
+    <string-array name="spinner_items">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>5</item>
+        <item>8</item>
+        <item>13</item>
+        <item>21</item>
+        <item>34</item>
+        <item>55</item>
+        <item>89</item>
+    </string-array>
+    <string name="welcomeback">Welcome back</string>
+    <string name="login">Log in</string>
+    <string name="logintoyoraccount">Sign in to your account</string>
+    <string name="first_name">First name</string>
+    <string name="lastname">Last name</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="signup">Sign Up</string>
+
+    <string name="back">Back</string>
+    <string name="add_task">Short click add new task, long pressed show scores</string>
+    <string name="register1">Register here</string>
+    <string name="fullname">Full name</string>
+    <string name="addnewtask">Add new task</string>
+    <string name="add">Add</string>
+    <string name="showpassword">Show password</string>
+    <string name="skip">Skip</string>
+    <string name="rigth">Next</string>
+    <string name="result">Results</string>
+    <string name="groups">Groups</string>
+    <string name="addnewgroup">Add new group</string>
+    <string name="Addnametothegroup">Add name to the group</string>
+    <string name="addnewquestion">Add new task</string>
+    <string name="addquestion">Add question</string>
+    <string name="backtogroups">Back</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
