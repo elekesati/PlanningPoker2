@@ -15,7 +15,7 @@ import androidx.fragment.app.Fragment;
 
 public class AddGroupsFragment extends Fragment {
 
-    private Button mAddQuestion, mBack;
+    private Button mAddQuestion, mBack, mSubmit;
     private EditText mNewTask, mGroupName;
     private TextView mTasksList;
     Database database = new Database();
@@ -30,6 +30,7 @@ public class AddGroupsFragment extends Fragment {
         mTasksList = view.findViewById(R.id.tv_questions);
         mGroupName = view.findViewById(R.id.et_groupname);
         mBack = view.findViewById(R.id.btn_backtogroups);
+        mSubmit = view.findViewById(R.id.btn_Submit);
         mTasksList.setMovementMethod(new ScrollingMovementMethod());
 
         mAddQuestion.setOnClickListener(new View.OnClickListener() {
@@ -49,6 +50,12 @@ public class AddGroupsFragment extends Fragment {
             }
         });*/
 
+        mSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.mFragmentManager.beginTransaction().replace(R.id.fragment_container, new GroupsFragment(),null).commit();
+            }
+        });
         return view;
     }
 
@@ -70,7 +77,7 @@ public class AddGroupsFragment extends Fragment {
         // check if group name is empty show an error message
         if (!mGroupName.getText().toString().matches("")){
             if (mNewTask.getText().toString().matches("")){
-                mNewTask.setError("Pleas fill with task name");
+                mNewTask.setError("Please fill with task name");
                 mNewTask.requestFocus();
             }else {
                 addNewTask();

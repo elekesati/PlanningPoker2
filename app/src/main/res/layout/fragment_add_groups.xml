@@ -12,7 +12,7 @@
         android:id="@+id/btn_backtogroups"
         android:layout_width="150dp"
         android:layout_height="50dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="25dp"
         android:background="@drawable/roundedbutton"
         android:text="@string/backtogroups"
@@ -26,7 +26,7 @@
         android:layout_width="150dp"
         android:layout_height="50dp"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/roundedbutton"
         android:text="@string/submit"
         android:textColor="#FFFFFF"
@@ -39,7 +39,6 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="140dp"
-        android:layout_marginTop="25dp"
         android:layout_marginEnd="142dp"
         android:background="@drawable/roundbuttonwithborder"
         android:text="@string/addquestion"
@@ -71,7 +70,7 @@
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_marginStart="66dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="35dp"
         android:layout_marginEnd="66dp"
         android:ems="10"
         android:gravity="center"
@@ -86,7 +85,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:text="@string/addnewgroup"
         android:textColor="@color/colorAccent"
         android:textSize="34sp"
@@ -99,7 +98,7 @@
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_marginStart="66dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="66dp"
         android:ems="10"
         android:gravity="center"
@@ -107,6 +106,7 @@
         android:inputType="textPersonName"
         android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline5" />
 
@@ -124,7 +124,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent="0.15" />
+        app:layout_constraintGuide_percent="0.10" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline4"
@@ -148,7 +148,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent="0.75" />
+        app:layout_constraintGuide_percent="0.80" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline7"
