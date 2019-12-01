@@ -9,6 +9,7 @@ import android.widget.Button;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -40,6 +41,9 @@ public class GroupsListFragment extends DialogFragment {
         mRecyclerViewResultList.setHasFixedSize(true);
         dividerItemDecoration = new DividerItemDecoration(getContext(), VERTICAL);
         mRecyclerViewResultList.addItemDecoration(dividerItemDecoration);
+
+        enableBackArrow(false);
+
         /**
          * when we click an item, return the item name
          * and then sent the scoring fragment with bundle
@@ -76,6 +80,7 @@ public class GroupsListFragment extends DialogFragment {
         btnAddNewGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                enableBackArrow(true);
                 MainActivity.mFragmentManager.beginTransaction().replace(R.id.fragment_container, new AddGroupsFragment(),null).commit();
             }
         });
@@ -90,5 +95,10 @@ public class GroupsListFragment extends DialogFragment {
         dialogMessage.show(getFragmentManager(), "example dialog");
     }
 
-
+    private void enableBackArrow(boolean enable){
+        ActionBar supportActionBar = ((MainActivity) getActivity()).getSupportActionBar();
+        supportActionBar.setHomeButtonEnabled(enable);
+        supportActionBar.setDisplayHomeAsUpEnabled(enable);
+        supportActionBar.setDisplayShowHomeEnabled(enable);
+    }
 }

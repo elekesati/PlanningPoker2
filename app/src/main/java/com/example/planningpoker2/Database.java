@@ -195,4 +195,51 @@ public class Database {
             }
         });
     }
+
+    public void updateVisibility(String group, String task, Boolean isVisible){
+        mDatabase = FirebaseDatabase.getInstance();
+        myRef = mDatabase.getReference("Groups" + "/" + group + "/" + task);
+        if(isVisible){
+            myRef.child("mStatus").setValue("1").addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull com.google.android.gms.tasks.Task<Void> task) {
+                    if (!task.isSuccessful()){
+                        Log.d(TAG, "Cannot set visibility");
+                    }
+                }
+            });
+        }
+        else{
+            myRef.child("mStatus").setValue("0").addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull com.google.android.gms.tasks.Task<Void> task) {
+                    if (!task.isSuccessful()){
+                        Log.d(TAG, "Cannot set visibility");
+                    }
+                }
+            });
+        }
+    }
+
+    public void getUserStatus(final OnGetDataListener onGetDataListener){
+        mDatabase = FirebaseDatabase.getInstance();
+        myRef = mDatabase.getReference("Users" +
+                "/" +
+                FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String status = dataSnapshot.child("mStatus").getValue().toString();
+                ArrayList<String> result = new ArrayList<>();
+                result.add(status);
+                onGetDataListener.onSuccess(result);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
 }

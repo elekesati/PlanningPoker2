@@ -20,7 +20,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class TaskVisibilityHandlerFragment extends Fragment {
+public class TaskVisibilityHandlerFragment extends Fragment{
     private static final String TAG = "PlanningPokerVisible";
     private ResultFragment.OnHandlerFragmentInteractionListener mListener;
 
@@ -37,7 +37,7 @@ public class TaskVisibilityHandlerFragment extends Fragment {
     private ArrayList<String> mTaskList;
     private ArrayList<String> mVisibilityList;
 
-    public TaskVisibilityHandlerFragment() {
+    public TaskVisibilityHandlerFragment(){
         // Required empty public constructor
     }
 
@@ -82,7 +82,8 @@ public class TaskVisibilityHandlerFragment extends Fragment {
             public void onSuccess(ArrayList<String> taskList) {
                 mVisibilityList = taskList;
                 layoutManager = new LinearLayoutManager(getContext());
-                adapter = new VisibilitySettingsListAdapter(mTaskList, mVisibilityList);
+                adapter = new VisibilitySettingsListAdapter(mTaskList, mVisibilityList,
+                        TaskVisibilityHandlerFragment.this);
                 mRecyclerViewTaskList.setLayoutManager(layoutManager);
                 mRecyclerViewTaskList.setAdapter(adapter);
             }
@@ -119,6 +120,11 @@ public class TaskVisibilityHandlerFragment extends Fragment {
                         new GroupsListFragment(),null).commit();
             }
         });
+    }
+
+    public void onSwitchSateChanged(String task, Boolean isEnabled){
+        String group = mSpinnerTasks.getSelectedItem().toString();
+        database.updateVisibility(group, task, isEnabled);
     }
 
     public void onButtonPressed(Uri uri) {
