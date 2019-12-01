@@ -25,7 +25,6 @@ public class RegisterFragment extends Fragment {
 
     private EditText mEmail, mPassword, mFullName;
     private Button btnSignUp;
-    private TextView mBack;
     FirebaseAuth mFireBaseAuth;
     public RegisterFragment(){
 
@@ -41,15 +40,6 @@ public class RegisterFragment extends Fragment {
         mEmail = view.findViewById(R.id.et_email);
         mPassword = view.findViewById(R.id.et_password);
         mFullName = view.findViewById(R.id.et_fullname);
-        mBack = view.findViewById(R.id.tv_back_to_login);
-
-
-        /*mBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MainActivity.mFragmentManager.beginTransaction().replace(R.id.fragment_container, new SignInFragment(),null).commit();
-            }
-        });*/
 
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override

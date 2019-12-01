@@ -1,17 +1,13 @@
 package com.example.planningpoker2;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class RecyclerViewGroups extends RecyclerView.Adapter<RecyclerViewGroups.ViewHolder> {
@@ -45,6 +41,10 @@ public class RecyclerViewGroups extends RecyclerView.Adapter<RecyclerViewGroups.
         ((TextView) holder.mTextView.findViewById(R.id.tv_groups)).setText(groups.get(position).toString());
     }
 
+    /**
+     * number of element in the group
+     * @return
+     */
     @Override
     public int getItemCount() {
         return groups.size();
@@ -70,6 +70,11 @@ public class RecyclerViewGroups extends RecyclerView.Adapter<RecyclerViewGroups.
         }
     }
 
+    /**
+     * which element have that position, where you clicked
+     * @param id - where do you clicked
+     * @return - name of the element
+     */
     public String getItem(int id){
         return groups.get(id);
     }

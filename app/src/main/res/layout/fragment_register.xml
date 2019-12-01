@@ -5,19 +5,6 @@
     android:layout_height="match_parent"
     tools:context="com.example.planningpoker2.RegisterFragment">
 
-    <TextView
-        android:id="@+id/tv_back_to_login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="201dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="200dp"
-        android:text="@string/back"
-        android:textColor="#0F7569"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnSignUp" />
-
     <Button
         android:id="@+id/btnSignUp"
         android:layout_width="200dp"
