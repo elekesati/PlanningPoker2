@@ -10,8 +10,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,6 +32,10 @@ public class TaskVisibilityHandlerFragment extends Fragment {
 
     private Database database;
     private OnGetDataListener onGetDataListener;
+    private OnGetDataListener onGetDataListenerVisibility;
+
+    private ArrayList<String> mTaskList;
+    private ArrayList<String> mVisibilityList;
 
     public TaskVisibilityHandlerFragment() {
         // Required empty public constructor
@@ -45,18 +49,11 @@ public class TaskVisibilityHandlerFragment extends Fragment {
 
         View view = getView();
         if (view == null) {
-            view = inflater.inflate(R.layout.fragment_result, container, false);
+            view = inflater.inflate(R.layout.fragment_task_visibility_handler, container, false);
         }
 
         mRecyclerViewTaskList = view.findViewById(R.id.recyclerViewTaskSettings);
         mSpinnerTasks = view.findViewById(R.id.spinnerTasksForVisibility);
-
-        mSpinnerTasks.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //TODO
-            }
-        });
 
         database = new Database();
         onGetDataListener = new OnGetDataListener() {
@@ -69,15 +66,42 @@ public class TaskVisibilityHandlerFragment extends Fragment {
             }
 
             @Override
-            public void onSuccess(Map<String, Double> dataMap) {
+            public void onSuccess(ArrayList<String> taskList) {
+                mTaskList = taskList;
+                Log.d(TAG, "TaskList OK");
+            }
+        };
+
+        onGetDataListenerVisibility = new OnGetDataListener() {
+            @Override
+            public void onSuccess(List<String> dataList) {
+
+            }
+
+            @Override
+            public void onSuccess(ArrayList<String> taskList) {
+                mVisibilityList = taskList;
                 layoutManager = new LinearLayoutManager(getContext());
-                adapter = new VisibilitySettingsListAdapter(dataMap);
+                adapter = new VisibilitySettingsListAdapter(mTaskList, mVisibilityList);
                 mRecyclerViewTaskList.setLayoutManager(layoutManager);
                 mRecyclerViewTaskList.setAdapter(adapter);
             }
         };
 
-        //database.getAverage(onGetDataListener);
+        database.getListGroups(onGetDataListener);
+
+        mSpinnerTasks.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                database.getTaskList(mSpinnerTasks.getItemAtPosition(i).toString(), onGetDataListener);
+                database.getTaskVisibilityByGroup(mSpinnerTasks.getItemAtPosition(i).toString(), onGetDataListenerVisibility);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         return view;
     }

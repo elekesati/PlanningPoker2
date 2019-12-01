@@ -23,6 +23,9 @@ public class Database {
     List<String> groupNames = new ArrayList<>();
     ArrayList<String> taskList = new ArrayList<>();
 
+    ArrayList<String> resultList = new ArrayList<>();
+    ArrayList<String> visibilityList = new ArrayList<>();
+
     public void addNewTaskToAGroup(String groupName, String taskName){
         Task task = new Task(taskName);
         FirebaseDatabase.getInstance().getReference("Groups")
@@ -75,8 +78,7 @@ public class Database {
     }
 
     /**
-     * return tasks of a special group from firebase
-     * if a user vote all task from a group return empty list
+     * return elements of a special group from firebase
      * @param groupName - which group elements do we return
      */
     public void getTaskList(final String groupName, final OnGetDataListener onGetDataListener){
@@ -87,19 +89,10 @@ public class Database {
             @SuppressLint("LongLogTag")
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
                 for(DataSnapshot ds: dataSnapshot.getChildren()){
                     if (ds.getKey().matches(groupName)){
-                        int value = 0;
                         for (DataSnapshot tasks : ds.getChildren()){
-                            for (DataSnapshot users : tasks.child("Scores").getChildren()){
-                                if (users.getKey().matches(user)){
-                                    value=1;
-                                }
-                            }
-                            if (value == 0){
-                                taskList.add(tasks.getKey());
-                            }
+                            taskList.add(tasks.getKey());
                         }
                     }
                 }
@@ -144,5 +137,62 @@ public class Database {
                         }
                     }
                 });
+    }
+
+
+    public void getTaskVisibilityByGroup(final String groupName, final OnGetDataListener onGetDataListener){
+        mDatabase = FirebaseDatabase.getInstance();
+        myRef = mDatabase.getReference("Groups" + "/" + groupName);
+
+        removeArrayList(visibilityList);
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot ds: dataSnapshot.getChildren()){
+                    visibilityList.add(ds.child("mStatus").getValue().toString());
+                }
+
+                onGetDataListener.onSuccess(visibilityList);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    /**
+     * returns the averages of the results by group
+     * @param groupName - which group has the task
+     */
+    public void getTaskResultsByGroup(final String groupName, final OnGetDataListener onGetDataListener){
+        mDatabase = FirebaseDatabase.getInstance();
+        myRef = mDatabase.getReference("Groups" + "/" + groupName);
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                int index = 0;
+                for(DataSnapshot ds: dataSnapshot.getChildren()){
+                    Long result = 0L;
+                    for (DataSnapshot ds2 : ds.child("Scores").getChildren()){
+                        result += Long.parseLong(ds2.getValue().toString());
+                    }
+                    if(ds.child("Scores").getChildrenCount() != 0){
+                        result /= ds.child("Scores").getChildrenCount();
+                    }
+                    resultList.add(index, result.toString());
+                    ++index;
+                }
+
+                onGetDataListener.onSuccess(resultList);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 }
