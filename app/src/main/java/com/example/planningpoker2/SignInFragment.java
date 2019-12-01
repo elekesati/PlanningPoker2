@@ -56,12 +56,12 @@ public class SignInFragment extends Fragment {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                enableBackArrow(true);
+                //enableBackArrow(true);
                 String email = mEmail.getText().toString();
                 String password = mPassword.getText().toString();
-                //login(email,password);
+                login(email,password);
               
-                MainActivity.mFragmentManager.beginTransaction().replace(R.id.fragment_container, new GroupsListFragment(),null).commit();
+                //MainActivity.mFragmentManager.beginTransaction().replace(R.id.fragment_container, new GroupsListFragment(),null).commit();
             }
         });
 
@@ -94,6 +94,7 @@ public class SignInFragment extends Fragment {
                     }
                     else{
                         Toast.makeText(getActivity(), "Login Success", Toast.LENGTH_LONG).show();
+                        MainActivity.setMenu();
                         MainActivity.mFragmentManager.beginTransaction().replace(R.id.fragment_container, new GroupsListFragment(),null).commit();
                     }
                 }
@@ -126,6 +127,7 @@ public class SignInFragment extends Fragment {
                 FirebaseUser mFirebaseUser = mFireBaseAuth.getCurrentUser();
                 if (mFirebaseUser != null){
                     Toast.makeText(getActivity(), "You are logged in", Toast.LENGTH_LONG).show();
+                    MainActivity.setMenu();
                     MainActivity.mFragmentManager.beginTransaction().replace(R.id.fragment_container, new GroupsListFragment(),null).commit();
                 }
                 else{

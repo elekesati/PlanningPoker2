@@ -1,14 +1,6 @@
 package com.example.planningpoker2;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +8,9 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.fragment.app.Fragment;
 
 public class ScoringFragment extends Fragment {
 
@@ -41,22 +36,9 @@ public class ScoringFragment extends Fragment {
         database = new Database();
         getDataFromBundle();
 
+        enableBackArrow(false);
+
         return view;
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        //Toolbar toolbar = getView().findViewById(R.id.toolbar);
-        Toolbar toolbar = ((MainActivity) getActivity()).findViewById(R.id.toolbar);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //database.removeTaskIfClickBackButton(mGroupName.getText().toString());
-                MainActivity.mFragmentManager.beginTransaction().replace(R.id.fragment_container, new GroupsListFragment(),null).commit();
-            }
-        });
     }
 
     /**
@@ -132,6 +114,7 @@ public class ScoringFragment extends Fragment {
                         else {
                             Database db = new Database();
                             db.addTaskScoreToDatabase(mGroupName,taskList.get(count),mValue.getText().toString());
+                            enableBackArrow(true);
                             MainActivity.mFragmentManager.beginTransaction().replace(R.id.fragment_container, new GroupsListFragment(),null).commit();
                         }
                     }
@@ -145,6 +128,7 @@ public class ScoringFragment extends Fragment {
                             mTask.setText(taskList.get(count));
                         }
                         else{
+                            enableBackArrow(true);
                             MainActivity.mFragmentManager.beginTransaction().replace(R.id.fragment_container, new GroupsListFragment(),null).commit();
                         }
                     }
@@ -153,5 +137,12 @@ public class ScoringFragment extends Fragment {
         };
 
         database.getTaskList(mGroupName, onGetDataListener);
+    }
+
+    private void enableBackArrow(boolean enable){
+        ActionBar supportActionBar = ((MainActivity) getActivity()).getSupportActionBar();
+        supportActionBar.setHomeButtonEnabled(enable);
+        supportActionBar.setDisplayHomeAsUpEnabled(enable);
+        supportActionBar.setDisplayShowHomeEnabled(enable);
     }
 }
