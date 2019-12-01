@@ -75,7 +75,8 @@ public class Database {
     }
 
     /**
-     * return elements of a special group from firebase
+     * return tasks of a special group from firebase
+     * if a user vote all task from a group return empty list
      * @param groupName - which group elements do we return
      */
     public void getTaskList(final String groupName, final OnGetDataListener onGetDataListener){
@@ -86,10 +87,19 @@ public class Database {
             @SuppressLint("LongLogTag")
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
                 for(DataSnapshot ds: dataSnapshot.getChildren()){
                     if (ds.getKey().matches(groupName)){
+                        int value = 0;
                         for (DataSnapshot tasks : ds.getChildren()){
-                            taskList.add(tasks.getKey());
+                            for (DataSnapshot users : tasks.child("Scores").getChildren()){
+                                if (users.getKey().matches(user)){
+                                    value=1;
+                                }
+                            }
+                            if (value == 0){
+                                taskList.add(tasks.getKey());
+                            }
                         }
                     }
                 }
