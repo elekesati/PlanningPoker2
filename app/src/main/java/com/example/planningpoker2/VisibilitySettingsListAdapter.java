@@ -7,17 +7,15 @@ import android.view.ViewGroup;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class VisibilitySettingsListAdapter extends RecyclerView.Adapter<VisibilitySettingsListAdapter.VisibilitySettingViewHolder> {
     public static final String TAG = "PlanningPokerSetAdap";
-    List<Object> tasks;
-    List<Object> isEnabled;
+    ArrayList<String> taskList;
+    ArrayList<String> visibilityList;
 
     public class VisibilitySettingViewHolder  extends RecyclerView.ViewHolder{
         public TextView textViewTask;
@@ -30,33 +28,29 @@ public class VisibilitySettingsListAdapter extends RecyclerView.Adapter<Visibili
         }
     }
 
-    public VisibilitySettingsListAdapter(Map<String, Double> results) {
-        this.tasks = Arrays.asList(results.keySet().toArray());
-        this.isEnabled = Arrays.asList(results.values().toArray());
+    public VisibilitySettingsListAdapter(ArrayList<String> taskList, ArrayList<String> visibilityList) {
+        this.taskList = taskList;
+        this.visibilityList = visibilityList;
     }
 
     @NonNull
     @Override
     public VisibilitySettingsListAdapter.VisibilitySettingViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Log.d(TAG, "Creating view holder");
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.result_list_item, parent, false);
-        VisibilitySettingsListAdapter.VisibilitySettingViewHolder visibilitySettingViewHolder =
-                new VisibilitySettingsListAdapter.VisibilitySettingViewHolder(view);
-        return visibilitySettingViewHolder;
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.visibility_settings_list_element, parent, false);
+        return new VisibilitySettingsListAdapter.VisibilitySettingViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull VisibilitySettingsListAdapter.VisibilitySettingViewHolder holder, int position) {
         Log.d(TAG, "Binding view holder");
 
-        holder.textViewTask.setText(tasks.get(position).toString());
-        holder.switchIsEnabled.setTextOff("Invisible");
-        holder.switchIsEnabled.setTextOn("Visible");
-        holder.switchIsEnabled.setChecked(isEnabled.get(position).equals(1d));
+        holder.textViewTask.setText(taskList.get(position));
+        holder.switchIsEnabled.setChecked(visibilityList.get(position).equals("1"));
     }
 
     @Override
     public int getItemCount() {
-        return tasks.size();
+        return taskList.size();
     }
 }

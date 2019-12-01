@@ -43,6 +43,10 @@
     <string name="addquestion">Add question</string>
     <string name="backtogroups">Back</string>
 
+
+    <string name="visible">Visible</string>
+    <string name="invisible">Invivisble</string>
+
     <string name="task_view_settings">Set the visibility of tasks</string>
 
     <!-- TODO: Remove or change this placeholder text -->

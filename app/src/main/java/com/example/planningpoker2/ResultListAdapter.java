@@ -6,9 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -16,8 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class ResultListAdapter extends RecyclerView.Adapter<ResultListAdapter.ResultViewHolder>  {
     public static final String TAG = "PlanningPokerResAdap";
-    List<Object> tasks;
-    List<Object> results;
+    List<String> tasks;
+    List<String> results;
 
     public class ResultViewHolder  extends RecyclerView.ViewHolder{
         public CardView cardView;
@@ -29,9 +27,9 @@ public class ResultListAdapter extends RecyclerView.Adapter<ResultListAdapter.Re
         }
     }
 
-    public ResultListAdapter(Map<String, Double> results) {
-        this.tasks = Arrays.asList(results.keySet().toArray());
-        this.results = Arrays.asList(results.values().toArray());
+    public ResultListAdapter(List<String> tasks, List<String> results) {
+        this.tasks = tasks;
+        this.results = results;
     }
 
     @NonNull

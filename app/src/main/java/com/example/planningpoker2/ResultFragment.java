@@ -10,8 +10,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
@@ -31,6 +31,10 @@ public class ResultFragment extends Fragment {
 
     private Database database;
     private OnGetDataListener onGetDataListener;
+    private OnGetDataListener onGetDataListenerResults;
+
+    private ArrayList<String> mTaskList;
+    private ArrayList<String> mResultList;
 
     public ResultFragment() {
         // Required empty public constructor
@@ -49,13 +53,6 @@ public class ResultFragment extends Fragment {
         mRecyclerViewResultList = view.findViewById(R.id.recyclerViewResults);
         mSpinnerTasks = view.findViewById(R.id.spinnerTasksForResult);
 
-        mSpinnerTasks.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //TODO
-            }
-        });
-
         database = new Database();
         onGetDataListener = new OnGetDataListener() {
             @Override
@@ -67,15 +64,41 @@ public class ResultFragment extends Fragment {
             }
 
             @Override
-            public void onSuccess(Map<String, Double> dataMap) {
+            public void onSuccess(ArrayList<String> taskList) {
+                mTaskList = taskList;
+            }
+        };
+
+        onGetDataListenerResults = new OnGetDataListener() {
+            @Override
+            public void onSuccess(List<String> dataList) {
+
+            }
+
+            @Override
+            public void onSuccess(ArrayList<String> taskList) {
+                mResultList = taskList;
                 layoutManager = new GridLayoutManager(getContext(), 3);
-                adapter = new ResultListAdapter(dataMap);
+                adapter = new ResultListAdapter(mResultList, mTaskList);
                 mRecyclerViewResultList.setLayoutManager(layoutManager);
                 mRecyclerViewResultList.setAdapter(adapter);
             }
         };
 
-        //database.getAverage(onGetDataListener);
+        database.getListGroups(onGetDataListener);
+
+        mSpinnerTasks.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                database.getTaskList(mSpinnerTasks.getItemAtPosition(i).toString(), onGetDataListener);
+                database.getTaskResultsByGroup(mSpinnerTasks.getItemAtPosition(i).toString(), onGetDataListenerResults);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         return view;
     }
