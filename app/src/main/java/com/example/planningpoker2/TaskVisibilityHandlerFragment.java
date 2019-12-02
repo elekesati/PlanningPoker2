@@ -57,6 +57,7 @@ public class TaskVisibilityHandlerFragment extends Fragment{
         mSpinnerTasks = view.findViewById(R.id.spinnerTasksForVisibility);
 
         enableBackArrow(true);
+        MainActivity.showMenu(true);
 
         database = new Database();
         onGetDataListener = new OnGetDataListener() {

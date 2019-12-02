@@ -11,7 +11,6 @@ import java.util.List;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 
 public class ScoringFragment extends DialogFragment {
 
@@ -38,6 +37,7 @@ public class ScoringFragment extends DialogFragment {
         openDialog();
         getDataFromBundle();
         enableBackArrow(false);
+        MainActivity.showMenu(false);
 
         return view;
     }
