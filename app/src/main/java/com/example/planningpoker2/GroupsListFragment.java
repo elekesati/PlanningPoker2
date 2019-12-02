@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +20,7 @@ public class GroupsListFragment extends DialogFragment {
     /**
      * variables list
      */
-    private static final String TAG = "PlanningPokerGroupListFragment";
+    private static final String TAG = "PlanningPokerGroupList";
     private RecyclerView mRecyclerViewResultList;
     private RecyclerViewGroups adapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -41,6 +40,7 @@ public class GroupsListFragment extends DialogFragment {
         mRecyclerViewResultList.addItemDecoration(dividerItemDecoration);
 
         enableBackArrow(false);
+        MainActivity.showMenu(true);
 
         /**
          * when we click an item, return the item name

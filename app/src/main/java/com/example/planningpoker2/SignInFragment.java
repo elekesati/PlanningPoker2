@@ -24,7 +24,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
 
 public class SignInFragment extends Fragment {
-
+    private static final String TAG = "PlanningPokerSign";
 
     private EditText mEmail, mPassword;
     private Button btnLogin;
@@ -52,6 +52,7 @@ public class SignInFragment extends Fragment {
         authStateListener();
 
         enableBackArrow(false);
+        MainActivity.showMenu(false);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override

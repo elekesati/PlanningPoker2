@@ -18,7 +18,9 @@ public class MainActivity extends AppCompatActivity {
 
     public static FragmentManager mFragmentManager;
     private Toolbar mToolbar;
-    private static Menu menu;
+    private static Menu mMenu;
+    private static boolean userIsAdmin = false;
+    private static boolean menuVisibility = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,10 +54,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        this.menu = menu;
+        Log.d(TAG, "Creating menu");
+        mMenu = menu;
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
-
+        showMenu(menuVisibility);
         return true;
     }
 
@@ -97,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public static void setMenu(){
-        Log.d(TAG, "Setting up menu");
+        Log.d(TAG, "Setting up mMenu");
         Database database = new Database();
         database.getUserStatus(new OnGetDataListener() {
             @Override
@@ -106,12 +109,39 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onSuccess(ArrayList<String> taskList) {
-                if (taskList.get(0).equals("1")){
+                userIsAdmin = taskList.get(0).equals("1");
+                if (userIsAdmin){
                     Log.d(TAG, "The user is admin");
-                    menu.getItem(2).setVisible(true);
-                    menu.getItem(3).setVisible(true);
+                    mMenu.getItem(2).setVisible(true);
+                    mMenu.getItem(3).setVisible(true);
                 }
             }
         });
+    }
+
+    public static void showMenu(boolean show){
+        Log.d(TAG, "Set menu visibility: " + show);
+        try{
+            if (show){
+                mMenu.getItem(0).setVisible(true);
+                mMenu.getItem(1).setVisible(true);
+                if (userIsAdmin){
+                    mMenu.getItem(2).setVisible(true);
+                    mMenu.getItem(3).setVisible(true);
+                }
+            }
+            else{
+                mMenu.getItem(0).setVisible(false);
+                mMenu.getItem(1).setVisible(false);
+                mMenu.getItem(2).setVisible(false);
+                mMenu.getItem(3).setVisible(false);
+            }
+        }
+        catch(NullPointerException e){
+            Log.d(TAG, "Menu is not created yet");
+        }
+        finally{
+            menuVisibility = show;
+        }
     }
 }

@@ -52,6 +52,7 @@ public class ResultFragment extends Fragment {
         }
 
         enableBackArrow(true);
+        MainActivity.showMenu(true);
 
         mRecyclerViewResultList = view.findViewById(R.id.recyclerViewResults);
         mSpinnerTasks = view.findViewById(R.id.spinnerTasksForResult);

@@ -15,6 +15,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 public class AddGroupsFragment extends Fragment {
+    private static final String TAG = "PlanningPokerAdd";
 
     private Button mAddQuestion, mBack, mSubmit;
     private EditText mNewTask, mGroupName;
@@ -34,6 +35,7 @@ public class AddGroupsFragment extends Fragment {
         mTasksList.setMovementMethod(new ScrollingMovementMethod());
 
         enableBackArrow(true);
+        MainActivity.showMenu(true);
 
         mAddQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
