@@ -25,7 +25,6 @@ public class GroupsListFragment extends DialogFragment {
     private RecyclerView mRecyclerViewResultList;
     private RecyclerViewGroups adapter;
     private RecyclerView.LayoutManager layoutManager;
-    private Button btnAddNewGroup;
     DividerItemDecoration dividerItemDecoration;
     OnGetDataListener onGetDataListener;
     Database database = new Database();
@@ -37,7 +36,6 @@ public class GroupsListFragment extends DialogFragment {
         View view = inflater.inflate(R.layout.fragment_groups_list, container, false);
 
         mRecyclerViewResultList = view.findViewById(R.id.rv_groups);
-        btnAddNewGroup = view.findViewById(R.id.btn_add_group);
         mRecyclerViewResultList.setHasFixedSize(true);
         dividerItemDecoration = new DividerItemDecoration(getContext(), VERTICAL);
         mRecyclerViewResultList.addItemDecoration(dividerItemDecoration);
@@ -62,7 +60,6 @@ public class GroupsListFragment extends DialogFragment {
                     bundle.putString("groupName", adapter.getItem(position));
                     ScoringFragment scoringFragment = new ScoringFragment();
                     scoringFragment.setArguments(bundle);
-                    openDialog();
                     MainActivity.mFragmentManager.beginTransaction().replace(R.id.fragment_container, scoringFragment, null).commit();
                  }
              });
@@ -76,23 +73,7 @@ public class GroupsListFragment extends DialogFragment {
         };
         database.getListGroups(onGetDataListener);
 
-
-        btnAddNewGroup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                enableBackArrow(true);
-                MainActivity.mFragmentManager.beginTransaction().replace(R.id.fragment_container, new AddGroupsFragment(),null).commit();
-            }
-        });
         return view;
-    }
-
-    /**
-     * when you click to an item, show a message, which ask for you, are you ready to start
-     */
-    public void openDialog(){
-        DialogMessage dialogMessage = new DialogMessage();
-        dialogMessage.show(getFragmentManager(), "example dialog");
     }
 
     private void enableBackArrow(boolean enable){

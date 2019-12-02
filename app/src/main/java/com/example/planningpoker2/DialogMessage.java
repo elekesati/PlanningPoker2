@@ -15,7 +15,7 @@ public class DialogMessage extends AppCompatDialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Information")
-                .setMessage("You can vote a task if you click the number. If you press the skip button, your vote will not be saved. It's importan, then you can vote just once")
+                .setMessage("You can vote a task if you click the number. If you press the skip button, your vote will not be saved.")
                 .setPositiveButton("Start", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
