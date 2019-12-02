@@ -20,7 +20,8 @@ public class VisibilitySettingsListAdapter
     private ArrayList<String> visibilityList;
     private TaskVisibilityHandlerFragment mTaskVisibilityHandlerFragment;
 
-    public class VisibilitySettingViewHolder  extends RecyclerView.ViewHolder{
+    public class VisibilitySettingViewHolder
+            extends RecyclerView.ViewHolder{
         public TextView textViewTask;
         public Switch switchIsEnabled;
 
@@ -49,18 +50,21 @@ public class VisibilitySettingsListAdapter
     }
 
     @Override
-    public void onBindViewHolder(@NonNull VisibilitySettingsListAdapter.VisibilitySettingViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final VisibilitySettingsListAdapter.VisibilitySettingViewHolder holder, int position) {
         Log.d(TAG, "Binding view holder");
 
-        holder.textViewTask.setText(taskList.get(position));
-        holder.switchIsEnabled.setChecked(visibilityList.get(position).equals("1"));
+        if (position < taskList.size() && position < visibilityList.size()){
+            holder.textViewTask.setText(taskList.get(position));
+            holder.switchIsEnabled.setChecked(visibilityList.get(position).equals("1"));
 
-        holder.switchIsEnabled.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                mTaskVisibilityHandlerFragment.onSwitchSateChanged(taskList.get(position), b);
-            }
-        });
+            holder.switchIsEnabled.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    mTaskVisibilityHandlerFragment.onSwitchSateChanged(taskList.get(holder.getLayoutPosition()), b);
+                }
+            });
+        }
     }
 
     @Override

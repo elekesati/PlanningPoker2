@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -49,6 +50,8 @@ public class ResultFragment extends Fragment {
         if (view == null) {
             view = inflater.inflate(R.layout.fragment_result, container, false);
         }
+
+        enableBackArrow(true);
 
         mRecyclerViewResultList = view.findViewById(R.id.recyclerViewResults);
         mSpinnerTasks = view.findViewById(R.id.spinnerTasksForResult);
@@ -126,5 +129,12 @@ public class ResultFragment extends Fragment {
 
     public interface OnHandlerFragmentInteractionListener {
         void replaceFragment(int fragment);
+    }
+
+    private void enableBackArrow(boolean enable){
+        ActionBar supportActionBar = ((MainActivity) getActivity()).getSupportActionBar();
+        supportActionBar.setHomeButtonEnabled(enable);
+        supportActionBar.setDisplayHomeAsUpEnabled(enable);
+        supportActionBar.setDisplayShowHomeEnabled(enable);
     }
 }
