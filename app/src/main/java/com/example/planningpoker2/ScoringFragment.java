@@ -10,9 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.appcompat.app.ActionBar;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
-public class ScoringFragment extends Fragment {
+public class ScoringFragment extends DialogFragment {
 
     private static final String TAG = "PlanningPokerNewScore";
     private Database database;
@@ -34,8 +35,8 @@ public class ScoringFragment extends Fragment {
         mPrev = view.findViewById(R.id.tv_prev);
         mSkip = view.findViewById(R.id.tv_skips);
         database = new Database();
+        openDialog();
         getDataFromBundle();
-
         enableBackArrow(false);
 
         return view;
@@ -137,6 +138,14 @@ public class ScoringFragment extends Fragment {
         };
 
         database.getTaskList(mGroupName, onGetDataListener);
+    }
+
+    /**
+     * when you click to an item, show a message, which ask for you, are you ready to start
+     */
+    public void openDialog(){
+        DialogMessage dialogMessage = new DialogMessage();
+        dialogMessage.show(getFragmentManager(), "example dialog");
     }
 
     private void enableBackArrow(boolean enable){

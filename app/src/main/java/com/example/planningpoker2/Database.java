@@ -65,7 +65,7 @@ public class Database {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()){
-                    groupNames.add(ds.getKey().toString());
+                    groupNames.add(ds.getKey());
                 }
                 onGetDataListener.onSuccess(groupNames);
             }
@@ -92,7 +92,9 @@ public class Database {
                 for(DataSnapshot ds: dataSnapshot.getChildren()){
                     if (ds.getKey().matches(groupName)){
                         for (DataSnapshot tasks : ds.getChildren()){
-                            taskList.add(tasks.getKey());
+                            if (tasks.child("mStatus").getValue().toString().matches("1")){
+                                taskList.add(tasks.getKey());
+                            }
                         }
                     }
                 }
@@ -124,19 +126,19 @@ public class Database {
      */
     public void addTaskScoreToDatabase(String mGroupName,String task_name, String score){
         FirebaseDatabase.getInstance().getReference("Groups")
-                .child(mGroupName)
-                .child(task_name)
-                .child("Scores")
-                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                .setValue(score)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull com.google.android.gms.tasks.Task<Void> task) {
-                        if (!task.isSuccessful()){
-                            Log.d(TAG, "Doesn't add score");
-                        }
-                    }
-                });
+            .child(mGroupName)
+            .child(task_name)
+            .child("Scores")
+            .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+            .setValue(score)
+            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull com.google.android.gms.tasks.Task<Void> task) {
+                if (!task.isSuccessful()){
+                    Log.d(TAG, "Doesn't add score");
+                }
+                }
+            });
     }
 
 
