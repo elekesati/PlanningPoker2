@@ -15,6 +15,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -44,7 +45,7 @@ public class TaskVisibilityHandlerFragment extends Fragment{
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+                             @Nullable final Bundle savedInstanceState) {
         Log.d(TAG, "Creating view");
 
         View view = getView();
@@ -55,14 +56,20 @@ public class TaskVisibilityHandlerFragment extends Fragment{
         mRecyclerViewTaskList = view.findViewById(R.id.recyclerViewTaskSettings);
         mSpinnerTasks = view.findViewById(R.id.spinnerTasksForVisibility);
 
+        enableBackArrow(true);
+
         database = new Database();
         onGetDataListener = new OnGetDataListener() {
             @Override
             public void onSuccess(List<String> dataList) {
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
-                        android.R.layout.simple_spinner_item, dataList);
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                mSpinnerTasks.setAdapter(adapter);
+                try{
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
+                            android.R.layout.simple_spinner_item, dataList);
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    mSpinnerTasks.setAdapter(adapter);
+                }catch(NullPointerException e){
+                    Log.d(TAG, "Null when get group list for spinner");
+                }
             }
 
             @Override
@@ -135,5 +142,12 @@ public class TaskVisibilityHandlerFragment extends Fragment{
 
     public interface OnHandlerFragmentInteractionListener {
         void replaceFragment(int fragment);
+    }
+
+    private void enableBackArrow(boolean enable){
+        ActionBar supportActionBar = ((MainActivity) getActivity()).getSupportActionBar();
+        supportActionBar.setHomeButtonEnabled(enable);
+        supportActionBar.setDisplayHomeAsUpEnabled(enable);
+        supportActionBar.setDisplayShowHomeEnabled(enable);
     }
 }

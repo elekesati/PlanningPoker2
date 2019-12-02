@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
@@ -31,6 +32,8 @@ public class AddGroupsFragment extends Fragment {
         mGroupName = view.findViewById(R.id.et_groupname);
         mSubmit = view.findViewById(R.id.btn_Submit);
         mTasksList.setMovementMethod(new ScrollingMovementMethod());
+
+        enableBackArrow(true);
 
         mAddQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,4 +97,10 @@ public class AddGroupsFragment extends Fragment {
         database.addNewTaskToAGroup(mGroupName.getText().toString(),text);
     }
 
+    private void enableBackArrow(boolean enable){
+        ActionBar supportActionBar = ((MainActivity) getActivity()).getSupportActionBar();
+        supportActionBar.setHomeButtonEnabled(enable);
+        supportActionBar.setDisplayHomeAsUpEnabled(enable);
+        supportActionBar.setDisplayShowHomeEnabled(enable);
+    }
 }
