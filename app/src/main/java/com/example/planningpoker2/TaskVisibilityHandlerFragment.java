@@ -101,7 +101,7 @@ public class TaskVisibilityHandlerFragment extends Fragment{
         mSpinnerTasks.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                database.getTaskList(mSpinnerTasks.getItemAtPosition(i).toString(), onGetDataListener);
+                database.getAllTask(mSpinnerTasks.getItemAtPosition(i).toString(), onGetDataListener);
                 database.getTaskVisibilityByGroup(mSpinnerTasks.getItemAtPosition(i).toString(), onGetDataListenerVisibility);
             }
 

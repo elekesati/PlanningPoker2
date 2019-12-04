@@ -1,6 +1,8 @@
 package com.example.planningpoker2;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,10 +49,12 @@ public class GroupsListFragment extends DialogFragment {
          * and then sent the scoring fragment with bundle
          */
         onGetDataListener = new OnGetDataListener() {
+        @SuppressLint("LongLogTag")
         @Override
         public void onSuccess(final List<String> dataList) {
             layoutManager = new LinearLayoutManager(getContext());
             adapter = new RecyclerViewGroups(dataList);
+            Log.d(TAG, dataList.toString());
             mRecyclerViewResultList.setLayoutManager(layoutManager);
             mRecyclerViewResultList.setAdapter(adapter);
             adapter.setClickListener(new RecyclerViewGroups.OnItemClickListener() {

@@ -141,20 +141,41 @@ public class Database {
             });
     }
 
+    public void getAllTask(final String groupName, final OnGetDataListener onGetDataListener){
+        mDatabase =FirebaseDatabase.getInstance();
+        myRef =mDatabase.getReference("Groups");
+        removeArrayList(taskList);
+        myRef.addValueEventListener(new ValueEventListener() {
+            @SuppressLint("LongLogTag")
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot ds: dataSnapshot.getChildren()){
+                    if (ds.getKey().matches(groupName)){
+                        for (DataSnapshot tasks : ds.getChildren()){
+                            taskList.add(tasks.getKey());
+                        }
+                    }
+                }
+                onGetDataListener.onSuccess(taskList);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
 
     public void getTaskVisibilityByGroup(final String groupName, final OnGetDataListener onGetDataListener){
         mDatabase = FirebaseDatabase.getInstance();
         myRef = mDatabase.getReference("Groups" + "/" + groupName);
-
         removeArrayList(visibilityList);
-
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot ds: dataSnapshot.getChildren()){
                     visibilityList.add(ds.child("mStatus").getValue().toString());
                 }
-
                 onGetDataListener.onSuccess(visibilityList);
             }
 
