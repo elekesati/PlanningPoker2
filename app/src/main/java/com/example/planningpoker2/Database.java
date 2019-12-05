@@ -61,11 +61,13 @@ public class Database {
     public void getListGroups(final OnGetDataListener onGetDataListener){
         mDatabase =FirebaseDatabase.getInstance();
         myRef =mDatabase.getReference("Groups");
+        groupNames.clear();
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()){
                     groupNames.add(ds.getKey());
+                    Log.d(TAG, "Meghivva");
                 }
                 onGetDataListener.onSuccess(groupNames);
             }
