@@ -60,7 +60,7 @@ public class AddGroupsFragment extends Fragment {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //database.removeTaskIfClickBackButton(mGroupName.getText().toString());
+                database.removeTaskIfClickBackButton(mGroupName.getText().toString());
                 MainActivity.mFragmentManager.beginTransaction().replace(R.id.fragment_container, new GroupsListFragment(),null).commit();
             }
         });
