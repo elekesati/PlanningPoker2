@@ -28,6 +28,7 @@ public class ResultFragment extends Fragment {
     private Spinner mSpinnerTasks;
 
     private RecyclerView.Adapter adapter;
+    private ArrayAdapter<String> mSpinnerAdapter;
     private RecyclerView.LayoutManager layoutManager;
 
     private Database database;
@@ -36,6 +37,8 @@ public class ResultFragment extends Fragment {
 
     private ArrayList<String> mTaskList;
     private ArrayList<String> mResultList;
+
+    private int mSelectedSpinnerItem = 0;
 
     public ResultFragment() {
         // Required empty public constructor
@@ -61,10 +64,17 @@ public class ResultFragment extends Fragment {
         onGetDataListener = new OnGetDataListener() {
             @Override
             public void onSuccess(List<String> dataList) {
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
-                        android.R.layout.simple_spinner_item, dataList);
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                mSpinnerTasks.setAdapter(adapter);
+                if (mSpinnerAdapter == null){
+                    Log.d(TAG, "Setting adapter for spinner");
+                    mSpinnerAdapter = new ArrayAdapter<>(getContext(),
+                            android.R.layout.simple_spinner_item, dataList);
+                    mSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    mSpinnerTasks.setAdapter(mSpinnerAdapter);
+                }
+                else{
+                    mSpinnerAdapter.notifyDataSetChanged();
+                }
+                mSpinnerTasks.setSelection(mSelectedSpinnerItem);
             }
 
             @Override
@@ -82,10 +92,15 @@ public class ResultFragment extends Fragment {
             @Override
             public void onSuccess(ArrayList<String> taskList) {
                 mResultList = taskList;
-                layoutManager = new GridLayoutManager(getContext(), 3);
-                adapter = new ResultListAdapter(mResultList, mTaskList);
-                mRecyclerViewResultList.setLayoutManager(layoutManager);
-                mRecyclerViewResultList.setAdapter(adapter);
+                if(adapter == null){
+                    layoutManager = new GridLayoutManager(getContext(), 3);
+                    adapter = new ResultListAdapter(mResultList, mTaskList);
+                    mRecyclerViewResultList.setLayoutManager(layoutManager);
+                    mRecyclerViewResultList.setAdapter(adapter);
+                }
+                else{
+                    adapter.notifyDataSetChanged();
+                }
             }
         };
 
@@ -94,6 +109,7 @@ public class ResultFragment extends Fragment {
         mSpinnerTasks.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                mSelectedSpinnerItem = i;
                 database.getTaskList(mSpinnerTasks.getItemAtPosition(i).toString(), onGetDataListener);
                 database.getTaskResultsByGroup(mSpinnerTasks.getItemAtPosition(i).toString(), onGetDataListenerResults);
             }
