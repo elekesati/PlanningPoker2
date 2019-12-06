@@ -52,21 +52,26 @@ public class GroupsListFragment extends DialogFragment {
         @SuppressLint("LongLogTag")
         @Override
         public void onSuccess(final List<String> dataList) {
-            layoutManager = new LinearLayoutManager(getContext());
-            adapter = new RecyclerViewGroups(dataList);
-            Log.d(TAG, dataList.toString());
-            mRecyclerViewResultList.setLayoutManager(layoutManager);
-            mRecyclerViewResultList.setAdapter(adapter);
-            adapter.setClickListener(new RecyclerViewGroups.OnItemClickListener() {
-                 @Override
-                 public void onItemClick(int position) {
-                    Bundle bundle = new Bundle();
-                    bundle.putString("groupName", adapter.getItem(position));
-                    ScoringFragment scoringFragment = new ScoringFragment();
-                    scoringFragment.setArguments(bundle);
-                    MainActivity.mFragmentManager.beginTransaction().replace(R.id.fragment_container, scoringFragment, null).commit();
-                 }
-             });
+            if (adapter == null){
+                layoutManager = new LinearLayoutManager(getContext());
+                adapter = new RecyclerViewGroups(dataList);
+                Log.d(TAG, dataList.toString());
+                mRecyclerViewResultList.setLayoutManager(layoutManager);
+                mRecyclerViewResultList.setAdapter(adapter);
+                adapter.setClickListener(new RecyclerViewGroups.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(int position) {
+                        Bundle bundle = new Bundle();
+                        bundle.putString("groupName", adapter.getItem(position));
+                        ScoringFragment scoringFragment = new ScoringFragment();
+                        scoringFragment.setArguments(bundle);
+                        MainActivity.mFragmentManager.beginTransaction().replace(R.id.fragment_container, scoringFragment, null).commit();
+                    }
+                });
+            }
+            else{
+                adapter.notifyDataSetChanged();
+            }
         }
 
         @Override

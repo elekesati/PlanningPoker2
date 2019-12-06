@@ -28,7 +28,8 @@ public class TaskVisibilityHandlerFragment extends Fragment{
     private RecyclerView mRecyclerViewTaskList;
     private Spinner mSpinnerTasks;
 
-    private RecyclerView.Adapter adapter;
+    private VisibilitySettingsListAdapter mVisibilitySettingsListAdapter;
+    private ArrayAdapter<String> mSpinnerAdapter;
     private RecyclerView.LayoutManager layoutManager;
 
     private Database database;
@@ -37,6 +38,8 @@ public class TaskVisibilityHandlerFragment extends Fragment{
 
     private ArrayList<String> mTaskList;
     private ArrayList<String> mVisibilityList;
+
+    private int mSelectedSpinnerItem = 0;
 
     public TaskVisibilityHandlerFragment(){
         // Required empty public constructor
@@ -64,10 +67,17 @@ public class TaskVisibilityHandlerFragment extends Fragment{
             @Override
             public void onSuccess(List<String> dataList) {
                 try{
-                    ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
-                            android.R.layout.simple_spinner_item, dataList);
-                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    mSpinnerTasks.setAdapter(adapter);
+                    if (mSpinnerAdapter == null){
+                        Log.d(TAG, "Setting adapter for spinner");
+                        mSpinnerAdapter = new ArrayAdapter<>(getContext(),
+                                android.R.layout.simple_spinner_item, dataList);
+                        mSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        mSpinnerTasks.setAdapter(mSpinnerAdapter);
+                    }
+                    else{
+                        mSpinnerAdapter.notifyDataSetChanged();
+                    }
+                    mSpinnerTasks.setSelection(mSelectedSpinnerItem);
                 }catch(NullPointerException e){
                     Log.d(TAG, "Null when get group list for spinner");
                 }
@@ -89,11 +99,17 @@ public class TaskVisibilityHandlerFragment extends Fragment{
             @Override
             public void onSuccess(ArrayList<String> taskList) {
                 mVisibilityList = taskList;
-                layoutManager = new LinearLayoutManager(getContext());
-                adapter = new VisibilitySettingsListAdapter(mTaskList, mVisibilityList,
-                        TaskVisibilityHandlerFragment.this);
-                mRecyclerViewTaskList.setLayoutManager(layoutManager);
-                mRecyclerViewTaskList.setAdapter(adapter);
+                if(mVisibilitySettingsListAdapter == null) {
+                    layoutManager = new LinearLayoutManager(getContext());
+                    mVisibilitySettingsListAdapter = new VisibilitySettingsListAdapter(mTaskList, mVisibilityList, TaskVisibilityHandlerFragment.this);
+                    mRecyclerViewTaskList.setLayoutManager(layoutManager);
+                    mRecyclerViewTaskList.setAdapter(mVisibilitySettingsListAdapter);
+                }
+                else {
+                    //mVisibilitySettingsListAdapter.setTaskList(mTaskList);
+                    //mVisibilitySettingsListAdapter.setVisibilityList(mVisibilityList);
+                    mVisibilitySettingsListAdapter.notifyDataSetChanged();
+                }
             }
         };
 
@@ -102,6 +118,7 @@ public class TaskVisibilityHandlerFragment extends Fragment{
         mSpinnerTasks.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                mSelectedSpinnerItem = i;
                 database.getAllTask(mSpinnerTasks.getItemAtPosition(i).toString(), onGetDataListener);
                 database.getTaskVisibilityByGroup(mSpinnerTasks.getItemAtPosition(i).toString(), onGetDataListenerVisibility);
             }

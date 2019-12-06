@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class VisibilitySettingsListAdapter
         extends RecyclerView.Adapter<VisibilitySettingsListAdapter.VisibilitySettingViewHolder> {
     private static final String TAG = "PlanningPokerSetAdap";
+
     private ArrayList<String> taskList;
     private ArrayList<String> visibilityList;
     private TaskVisibilityHandlerFragment mTaskVisibilityHandlerFragment;
@@ -70,5 +71,15 @@ public class VisibilitySettingsListAdapter
     @Override
     public int getItemCount() {
         return taskList.size();
+    }
+
+    public void setTaskList(ArrayList<String> taskList) {
+        this.taskList.clear();
+        this.taskList.addAll(taskList);
+    }
+
+    public void setVisibilityList(ArrayList<String> visibilityList) {
+        this.visibilityList.clear();
+        this.visibilityList.addAll(visibilityList);
     }
 }

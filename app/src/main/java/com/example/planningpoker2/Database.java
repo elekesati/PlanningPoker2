@@ -65,6 +65,7 @@ public class Database {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                groupNames.clear();
                 for (DataSnapshot ds : dataSnapshot.getChildren()){
                     groupNames.add(ds.getKey());
                     Log.d(TAG, "Meghivva");
